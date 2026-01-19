@@ -408,7 +408,7 @@ namespace FuzRoBorkNamespace {
 			if (
 				(
 					(nName != "null" && strlen(nName) > 0 && (strcmp(NPCList[i].name, nName) == 0 || IsRegexMatch(nName, NPCList[i].name)))
-					|| (nRace != "null" && strlen(nRace) > 0 && (strcmp(NPCList[i].race, nRace) == 0 || IsRegexMatch(nRace, NPCList[i].race) && (npc.sex == -1 || npc.sex == NPCList[i].sex)))
+					|| (nRace != "null" && strlen(nRace) > 0 && (strcmp(NPCList[i].race, nRace) == 0 || (IsRegexMatch(nRace, NPCList[i].race) && (npc.sex == -1 || npc.sex == NPCList[i].sex))))
 				)
 			)
 			{
