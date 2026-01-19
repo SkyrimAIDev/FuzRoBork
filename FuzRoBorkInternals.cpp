@@ -420,17 +420,17 @@ namespace FuzRoBorkNamespace {
 	}
 
 	bool IsRegexMatch(const char* str, const char* rx) {
-		return false;
-		_MESSAGE("checking regex %s %s", str, rx);
-		try {
-			return (strlen(rx) > 0 && regex_match(str, regex(rx)));
-		}
-		catch(...)
-		{
-			_MESSAGE("regex error");
+		if (!str || !rx || strlen(rx) == 0) {
 			return false;
 		}
-		return false;
+		_MESSAGE("checking regex %s %s", str, rx);
+		try {
+			return regex_match(str, regex(rx));
+		}
+		catch (const std::regex_error& e) {
+			_MESSAGE("regex error: %s", e.what());
+			return false;
+		}
 	}
 
 	void wav_find_timer_start(std::function<bool(void)> func, unsigned int interval)
