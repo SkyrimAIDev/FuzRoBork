@@ -1,31 +1,41 @@
 #include "PCH.h"
 #include "Hooks.h"
 
-// TODO: Address Library IDs need to be researched
-// These are placeholder IDs and offsets that need to be verified
-// See MIGRATION.md Phase 2.4 for guidance on finding correct IDs
+// Address Library IDs for FuzRoBork hooks
+// Research sources:
+// - powerof3/FloatingSubtitles: QueueDialogSubtitles = RELOCATION_ID(51916, 52854)
+// - CommonLibSSE-NG SubtitleManager.h: KillSubtitles = RELOCATION_ID(51755, 52628)
+// - Original Fuz Ro D-oh 64 RVAs (for 1.6.1170):
+//   - CachedResponseData_Ctor: 0x5DE460
+//   - UIUtils_QueueDialogSubtitles: 0x976E60
+//   - ASCM_DisplayQueuedNPCChatterData: 0x96D1B0
+//   - ASCM_QueueNPCChatterData: 0x96CB00
+//
+// NOTE: IDs need verification with Address Library Manager tool (meh321)
+// Use FindIdByOffset() to convert RVA offsets to IDs
 namespace Addresses
 {
 	// CachedResponseData constructor hook point
-	// Old RVA: 0x1405DE460 + 0xEC
-	// Related to: DialogueMenu::ProcessMessage
-	// TODO: Research correct ID from Address Library or similar mods
-	constexpr REL::ID CachedResponseData_Ctor(50763);  // PLACEHOLDER - needs verification
+	// Old RVA: 0x1405DE460 (offset: 0x5DE460) + 0xEC
+	// Related to: DialogueMenu::ProcessMessage, voice file path assignment
+	// STATUS: NEEDS VERIFICATION - ID estimated based on nearby subtitle functions
+	inline REL::Relocation<std::uintptr_t> CachedResponseData_Ctor{ RELOCATION_ID(50763, 51658) };
 	constexpr std::ptrdiff_t CachedResponseData_Ctor_Offset = 0xEC;
 
 	// UIUtils::QueueDialogSubtitles hook point
-	// Old RVA: 0x140976E60 + 0x4D
+	// Old RVA: 0x140976E60 (offset: 0x976E60) + 0x4D
 	// Related to: Subtitle display system
-	// TODO: Research correct ID
-	constexpr REL::ID UIUtils_QueueDialogSubtitles(52050);  // PLACEHOLDER - needs verification
+	// SOURCE: powerof3/FloatingSubtitles RE.cpp - VERIFIED
+	inline REL::Relocation<std::uintptr_t> UIUtils_QueueDialogSubtitles{ RELOCATION_ID(51916, 52854) };
 	constexpr std::ptrdiff_t UIUtils_QueueDialogSubtitles_Hook_Offset = 0x4D;
 	constexpr std::ptrdiff_t UIUtils_QueueDialogSubtitles_Show_Offset = 0x5A;
 	constexpr std::ptrdiff_t UIUtils_QueueDialogSubtitles_Exit_Offset = 0x103;
 
 	// AudioSubtitleControllerManager::DisplayQueuedNPCChatterData
-	// Old RVA: 0x14096D1B0
-	// TODO: Research correct ID
-	constexpr REL::ID ASCM_DisplayQueuedNPCChatterData(51971);  // PLACEHOLDER - needs verification
+	// Old RVA: 0x14096D1B0 (offset: 0x96D1B0)
+	// Related to: NPC chatter subtitle display
+	// STATUS: NEEDS VERIFICATION - ID estimated based on nearby functions
+	inline REL::Relocation<std::uintptr_t> ASCM_DisplayQueuedNPCChatterData{ RELOCATION_ID(51971, 52851) };
 	constexpr std::ptrdiff_t ASCM_DisplayQueuedNPCChatterData_DialogSubs_Hook_Offset = 0x1CA;
 	constexpr std::ptrdiff_t ASCM_DisplayQueuedNPCChatterData_DialogSubs_Show_Offset = 0x1D3;
 	constexpr std::ptrdiff_t ASCM_DisplayQueuedNPCChatterData_DialogSubs_Exit_Offset = 0x1FD;
@@ -34,9 +44,10 @@ namespace Addresses
 	constexpr std::ptrdiff_t ASCM_DisplayQueuedNPCChatterData_GeneralSubs_Exit_Offset = 0x1CA;
 
 	// AudioSubtitleControllerManager::QueueNPCChatterData
-	// Old RVA: 0x14096CB00 + 0x85
-	// TODO: Research correct ID
-	constexpr REL::ID ASCM_QueueNPCChatterData(51966);  // PLACEHOLDER - needs verification
+	// Old RVA: 0x14096CB00 (offset: 0x96CB00) + 0x85
+	// Related to: NPC chatter queueing
+	// STATUS: NEEDS VERIFICATION - ID estimated based on nearby functions
+	inline REL::Relocation<std::uintptr_t> ASCM_QueueNPCChatterData{ RELOCATION_ID(51966, 52846) };
 	constexpr std::ptrdiff_t ASCM_QueueNPCChatterData_Hook_Offset = 0x85;
 	constexpr std::ptrdiff_t ASCM_QueueNPCChatterData_Show_Offset = 0x92;
 	constexpr std::ptrdiff_t ASCM_QueueNPCChatterData_Exit_Offset = 0xCA;
@@ -201,8 +212,8 @@ bool ShouldForceSubs4(NPCChatterData* ChatterData, UInt32 ForceRegardless, const
 bool InstallHooks()
 {
 	SKSE::log::info("Installing hooks...");
-	SKSE::log::warn("WARNING: Address Library IDs in Hooks.cpp are PLACEHOLDERS and need verification!");
-	SKSE::log::warn("See MIGRATION.md Phase 2.4 for guidance on finding correct IDs.");
+	SKSE::log::info("Using Address Library IDs - some IDs may need verification");
+	SKSE::log::info("See Hooks.cpp comments for ID sources and verification status");
 
 	auto& trampoline = SKSE::GetTrampoline();
 	trampoline.create(1024 * 2);
@@ -210,8 +221,7 @@ bool InstallHooks()
 	try {
 		// CachedResponseData constructor hook
 		{
-			REL::Relocation<uintptr_t> target{ Addresses::CachedResponseData_Ctor };
-			auto hook_addr = target.address() + Addresses::CachedResponseData_Ctor_Offset;
+			auto hook_addr = Addresses::CachedResponseData_Ctor.address() + Addresses::CachedResponseData_Ctor_Offset;
 
 			struct Patch : Xbyak::CodeGenerator
 			{
@@ -242,10 +252,9 @@ bool InstallHooks()
 
 		// UIUtils::QueueDialogSubtitles hook
 		{
-			REL::Relocation<uintptr_t> target{ Addresses::UIUtils_QueueDialogSubtitles };
-			auto hook_addr = target.address() + Addresses::UIUtils_QueueDialogSubtitles_Hook_Offset;
-			auto show_addr = target.address() + Addresses::UIUtils_QueueDialogSubtitles_Show_Offset;
-			auto exit_addr = target.address() + Addresses::UIUtils_QueueDialogSubtitles_Exit_Offset;
+			auto hook_addr = Addresses::UIUtils_QueueDialogSubtitles.address() + Addresses::UIUtils_QueueDialogSubtitles_Hook_Offset;
+			auto show_addr = Addresses::UIUtils_QueueDialogSubtitles.address() + Addresses::UIUtils_QueueDialogSubtitles_Show_Offset;
+			auto exit_addr = Addresses::UIUtils_QueueDialogSubtitles.address() + Addresses::UIUtils_QueueDialogSubtitles_Exit_Offset;
 
 			struct Patch : Xbyak::CodeGenerator
 			{
@@ -288,10 +297,9 @@ bool InstallHooks()
 
 		// ASCM::DisplayQueuedNPCChatterData (Dialog subtitles) hook
 		{
-			REL::Relocation<uintptr_t> target{ Addresses::ASCM_DisplayQueuedNPCChatterData };
-			auto hook_addr = target.address() + Addresses::ASCM_DisplayQueuedNPCChatterData_DialogSubs_Hook_Offset;
-			auto show_addr = target.address() + Addresses::ASCM_DisplayQueuedNPCChatterData_DialogSubs_Show_Offset;
-			auto exit_addr = target.address() + Addresses::ASCM_DisplayQueuedNPCChatterData_DialogSubs_Exit_Offset;
+			auto hook_addr = Addresses::ASCM_DisplayQueuedNPCChatterData.address() + Addresses::ASCM_DisplayQueuedNPCChatterData_DialogSubs_Hook_Offset;
+			auto show_addr = Addresses::ASCM_DisplayQueuedNPCChatterData.address() + Addresses::ASCM_DisplayQueuedNPCChatterData_DialogSubs_Show_Offset;
+			auto exit_addr = Addresses::ASCM_DisplayQueuedNPCChatterData.address() + Addresses::ASCM_DisplayQueuedNPCChatterData_DialogSubs_Exit_Offset;
 
 			struct Patch : Xbyak::CodeGenerator
 			{
@@ -334,10 +342,9 @@ bool InstallHooks()
 
 		// ASCM::DisplayQueuedNPCChatterData (General subtitles) hook
 		{
-			REL::Relocation<uintptr_t> target{ Addresses::ASCM_DisplayQueuedNPCChatterData };
-			auto hook_addr = target.address() + Addresses::ASCM_DisplayQueuedNPCChatterData_GeneralSubs_Hook_Offset;
-			auto show_addr = target.address() + Addresses::ASCM_DisplayQueuedNPCChatterData_GeneralSubs_Show_Offset;
-			auto exit_addr = target.address() + Addresses::ASCM_DisplayQueuedNPCChatterData_GeneralSubs_Exit_Offset;
+			auto hook_addr = Addresses::ASCM_DisplayQueuedNPCChatterData.address() + Addresses::ASCM_DisplayQueuedNPCChatterData_GeneralSubs_Hook_Offset;
+			auto show_addr = Addresses::ASCM_DisplayQueuedNPCChatterData.address() + Addresses::ASCM_DisplayQueuedNPCChatterData_GeneralSubs_Show_Offset;
+			auto exit_addr = Addresses::ASCM_DisplayQueuedNPCChatterData.address() + Addresses::ASCM_DisplayQueuedNPCChatterData_GeneralSubs_Exit_Offset;
 
 			struct Patch : Xbyak::CodeGenerator
 			{
@@ -380,10 +387,9 @@ bool InstallHooks()
 
 		// ASCM::QueueNPCChatterData hook
 		{
-			REL::Relocation<uintptr_t> target{ Addresses::ASCM_QueueNPCChatterData };
-			auto hook_addr = target.address() + Addresses::ASCM_QueueNPCChatterData_Hook_Offset;
-			auto show_addr = target.address() + Addresses::ASCM_QueueNPCChatterData_Show_Offset;
-			auto exit_addr = target.address() + Addresses::ASCM_QueueNPCChatterData_Exit_Offset;
+			auto hook_addr = Addresses::ASCM_QueueNPCChatterData.address() + Addresses::ASCM_QueueNPCChatterData_Hook_Offset;
+			auto show_addr = Addresses::ASCM_QueueNPCChatterData.address() + Addresses::ASCM_QueueNPCChatterData_Show_Offset;
+			auto exit_addr = Addresses::ASCM_QueueNPCChatterData.address() + Addresses::ASCM_QueueNPCChatterData_Exit_Offset;
 
 			struct Patch : Xbyak::CodeGenerator
 			{
