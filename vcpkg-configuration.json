@@ -1,0 +1,11 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg-configuration.schema.json",
+  "registries": [
+    {
+      "kind": "git",
+      "baseline": "45009305b1cfdd818e0801523c4d3b27ef91a92a",
+      "repository": "https://gitlab.com/colorglass/vcpkg-colorglass",
+      "packages": ["commonlibsse-ng"]
+    }
+  ]
+}

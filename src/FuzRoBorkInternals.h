@@ -1,25 +1,10 @@
 #pragma once
-#pragma comment( lib, "Winmm.lib" )
+#pragma comment(lib, "Winmm.lib")
 
-#include <skse64/PluginAPI.h>
-#include <skse64/GameSettings.h>
-#include "skse64/GameAPI.h"
-#include <skse64/GameTypes.h>
-#include "skse64/GameForms.h"
-#include <skse64/GameEvents.h>
-#include <skse64/GameData.h>
-#include <skse64/GameStreams.h>
-#include <skse64/ScaleformState.h>
-#include <skse64/PapyrusArgs.h>
-#include <skse64_common/skse_version.h>
-#include <skse64/GameInput.h>
-#include <skse64/GameObjects.h>
-#include <skse64/GameRTTI.h>
-#include <skse64/GameUtilities.h>
-#include <skse64/PapyrusNativeFunctions.h>
-#include <skse64/ScaleformMovie.h>
+// CommonLibSSE-NG includes (via PCH.h)
+// These are now provided by the precompiled header
 
-#include "include/tinyxml2.h"
+#include <tinyxml2.h>
 #include "json/single_include/nlohmann/json.hpp"
 
 #include <sapi.h>
@@ -33,31 +18,24 @@
 #include <iostream>
 #include <string>
 #include <filesystem>
-#include <common/common/IFileStream.h>
 #include <shlobj.h>
 #include <cstdio>
 #include <sstream>
 #include <locale>
 #include <codecvt>
 
-#include <skse64_common/Utilities.h>
-
-#include <common/ICriticalSection.h>
-
 #include "include/SME_Prefix.h"
 #include "include/INIManager.h"
 #include "include/StringHelpers.h"
 #include "include/MiscGunk.h"
-#include "rapidjson/document.h"
-#include "rapidjson/writer.h"
-#include "rapidjson/stringbuffer.h"
+#include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/stringbuffer.h>
 
 using namespace rapidjson;
 using json = nlohmann::json;
 using namespace std;
 using namespace tinyxml2;
-
-extern IDebugLog						gLog;
 
 namespace interfaces
 {
@@ -367,5 +345,5 @@ namespace FuzRoBorkNamespace {
 	bool isSpeaking();
 	bool isXVASpeaking();
 	void stopSpeaking(void);
-	
+
 }

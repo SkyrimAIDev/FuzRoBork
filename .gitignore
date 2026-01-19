@@ -362,3 +362,10 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /EnvVars.props
+
+# CMake build artifacts
+build/
+CMakeUserPresets.json
+
+# vcpkg
+vcpkg_installed/

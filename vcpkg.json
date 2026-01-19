@@ -1,0 +1,12 @@
+{
+  "$schema": "https://raw.githubusercontent.com/microsoft/vcpkg-tool/main/docs/vcpkg.schema.json",
+  "name": "fuzrobork",
+  "version-string": "3.2.5",
+  "description": "Text-to-Speech mod for Skyrim SE using SAPI and xVASynth",
+  "dependencies": [
+    "commonlibsse-ng",
+    "simpleini",
+    "tinyxml2",
+    "rapidjson"
+  ]
+}
