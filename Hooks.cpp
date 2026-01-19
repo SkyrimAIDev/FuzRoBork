@@ -107,7 +107,7 @@ void SneakAtackVoicePath(CachedResponseData* Data, char* VoicePathBuffer)
 		if (ResponseText.length() > 1 || (ResponseText.length() == 1 && ResponseText[0] == ' ' && kSkipEmptyResponses.GetData().i == 0))
 		{
 			_MESSAGE("Missing Asset");
-			FORMAT_STR(ShimAssetFilePath, "Data\\Sound\\Voice\\Fuz Ro Doh\\Stock_%d.xwm", SecondsOfSilence);
+			FORMAT_STR(ShimAssetFilePath, "Data\\Sound\\Voice\\Fuz Ro Bork\\Stock_%d.xwm", SecondsOfSilence);
 			CALL_MEMBER_FN(&Data->voiceFilePath, Set)(ShimAssetFilePath);
 			_MESSAGE("Missing Asset - Switching to '%s'", ShimAssetFilePath);
 		}
