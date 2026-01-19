@@ -808,13 +808,11 @@ namespace FuzRoBorkNamespace {
 
 					const char* aName = (const char*)xTopic->Attribute("name");
 
-					OutputDebugString(aName);
-					OutputDebugString("\n");
+					_MESSAGE("Topic: %s", aName);
 
 					while (xOption) {
 						if (xOption->GetText()) {
-							OutputDebugString(xOption->GetText());
-							OutputDebugString("\n");
+							_MESSAGE("  Option: %s", xOption->GetText());
 							optionList.push_back(string(xOption->GetText()));
 						}
 						else
@@ -866,12 +864,11 @@ namespace FuzRoBorkNamespace {
 				if (S_OK != attributes->GetStringValue(L"Name", &nameValue))
 					continue;
 
-				OutputDebugStringW(nameValue);
-				OutputDebugString("\n");
+				_MESSAGE("Checking voice token");
 
 				if (name == wstring(nameValue))
 				{
-					OutputDebugString("found voice\n");
+					_MESSAGE("Found matching voice");
 					*pelt = pCurVoiceToken;
 					return true;
 				}
@@ -1086,25 +1083,25 @@ namespace FuzRoBorkNamespace {
 		if (strlen(storedBookSpeech) == 0)
 			return;
 		stopSpeaking();
-		OutputDebugString("Starting stored book speech\n");
+		_MESSAGE("Starting stored book speech");
 		startNarratorSpeech(storedBookSpeech);
 	}
 	void startStoredPagesSpeech(StaticFunctionTag* base) {
 		if (strlen(storedPagesSpeech) == 0)
 			return;
 		stopSpeaking();
-		OutputDebugString("Starting stored book speech\n");
+		_MESSAGE("Starting stored book speech");
 		startNarratorSpeech(storedPagesSpeech);
 	}
 	void startBookSpeech(const char* text) {
 		stopSpeaking();
 		storeBookSpeech(text);
-		OutputDebugString("Starting book speech\n");
+		_MESSAGE("Starting book speech");
 		startNarratorSpeech(text);
 	}
 	
 	void storeBookSpeech(const char* text) {
-		OutputDebugString("Storing book speech\n");
+		_MESSAGE("Storing book speech");
 		storedBookSpeech = text;
 		if (kPlayBooks.GetData().i == 1) {
 			stopSpeaking();
@@ -1113,7 +1110,7 @@ namespace FuzRoBorkNamespace {
 	}
 
 	void storeFirstPagesSpeech(const char* text) {
-		OutputDebugString("Storing first pages speech\n");
+		_MESSAGE("Storing first pages speech");
 		storedPagesSpeech = text;
 		if (kPlayBookPages.GetData().i == 1 && kPlayBooks.GetData().i == 0) {
 			stopSpeaking();
@@ -1122,7 +1119,7 @@ namespace FuzRoBorkNamespace {
 	}
 	
 	void storePagesSpeech(const char* text) {
-		OutputDebugString("Storing pages speech\n");
+		_MESSAGE("Storing pages speech");
 		storedPagesSpeech = text;
 		if (kPlayBookPages.GetData().i == 1) {
 			stopSpeaking();
@@ -1565,7 +1562,7 @@ namespace FuzRoBorkNamespace {
 
 
 	void hotSpeech(StaticFunctionTag* base, UInt32 _which) {
-		OutputDebugString("starting hot key speech\n");
+		_MESSAGE("Starting hot key speech");
 
 		if (kEnableHotKeys.GetData().i == 0)
 			return;
