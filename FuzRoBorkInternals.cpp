@@ -910,7 +910,7 @@ namespace FuzRoBorkNamespace {
 		// remove \t \r, etc
 
 		int idx = 0;
-		boolean par = false;
+		bool par = false;
 
 		string newStr = "";
 		while (idx < str.size()) {
@@ -1380,18 +1380,18 @@ namespace FuzRoBorkNamespace {
 		}
 	}
 
-	boolean isSpeaking() {
+	bool isSpeaking() {
 		if (pVoice == NULL)
-			return FALSE;
+			return false;
 		SPVOICESTATUS   pStatus;
 		pVoice->GetStatus(&pStatus, NULL);
 		if (pStatus.dwRunningState == SPRS_IS_SPEAKING)
-			return TRUE;
+			return true;
 
-		return FALSE;
+		return false;
 	}
-	
-	boolean isXVASpeaking() {
+
+	bool isXVASpeaking() {
 		return playingXVAS;
 	}
 
