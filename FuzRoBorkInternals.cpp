@@ -26,122 +26,122 @@ SME::INI::INISetting	kSkipEmptyResponses("SkipEmptyResponses",
 
 SME::INI::INISetting	kPlayPlayerDialogue("PlayPlayerDialogue",
 	"General",
-	"BLEH",
+	"Enable text-to-speech for player dialogue choices",
 	(SInt32)1);
 SME::INI::INISetting	kPlayNPCDialogue("PlayNPCDialogue",
 	"General",
-	"BLEH",
+	"Enable text-to-speech for NPC spoken dialogue",
 	(SInt32)1);
 SME::INI::INISetting	kPlayBookPages("PlayBookPages",
 	"General",
-	"BLEH",
+	"Enable text-to-speech for individual book pages",
 	(SInt32)0);
 SME::INI::INISetting	kPlayBooks("PlayBooks",
 	"General",
-	"BLEH",
+	"Enable text-to-speech for entire books",
 	(SInt32)0);
 SME::INI::INISetting	kPlayLoadingScreenText("PlayLoadingScreenText",
 	"General",
-	"BLEH",
+	"Enable text-to-speech for loading screen text",
 	(SInt32)0);
 SME::INI::INISetting	kVoicePlayerActions("VoicePlayerActions",
 	"General",
-	"BLEH",
+	"Enable text-to-speech for player action descriptions",
 	(SInt32)0);
 
 SME::INI::INISetting	kSpeakParentheses("SpeakParentheses",
 	"General",
-	"BLEH",
+	"Include parenthetical text in speech output",
 	(SInt32)0);
 SME::INI::INISetting	kEnableHotKeys("EnableHotKeys",
 	"General",
-	"BLEH",
+	"Enable keyboard hotkeys for TTS control",
 	(SInt32)0);
 
 SME::INI::INISetting	kMsPerWordSilence("MsPerWordSilence",
 	"General",
-	"BLEH",
+	"Milliseconds of silence per word (-1 for default)",
 	(float)-1);
 SME::INI::INISetting	kCustomTempPath("CustomTempPath",
 	"General",
-	"BLEH",
+	"Custom path for temporary audio files (empty for default)",
 	(char*)"");
 
 SME::INI::INISetting	kPlayerLanguage("PlayerLanguage",
 	"General",
-	"BLEH",
+	"SAPI voice language/name for player character",
 	(char*)"");
 SME::INI::INISetting	kFemaleLanguage("FemaleLanguage",
 	"General",
-	"BLEH",
+	"SAPI voice language/name for female NPCs",
 	(char*)"");
 SME::INI::INISetting	kMaleLanguage("MaleLanguage",
 	"General",
-	"BLEH",
+	"SAPI voice language/name for male NPCs",
 	(char*)"");
 SME::INI::INISetting	kNarratorLanguage("NarratorLanguage",
 	"General",
-	"BLEH",
+	"SAPI voice language/name for narrator (books, loading screens)",
 	(char*)"");
 
 SME::INI::INISetting	kPlayerVoiceRate("PlayerVoiceRate",
 	"General",
-	"BLEH",
+	"Speech rate for player voice (-10 to 10, -11 for default)",
 	(float)-11);
 SME::INI::INISetting	kFemaleVoiceRate("FemaleVoiceRate",
 	"General",
-	"BLEH",
+	"Speech rate for female NPC voices (-10 to 10, -11 for default)",
 	(float)-11);
 SME::INI::INISetting	kMaleVoiceRate("MaleVoiceRate",
 	"General",
-	"BLEH",
+	"Speech rate for male NPC voices (-10 to 10, -11 for default)",
 	(float)-11);
 SME::INI::INISetting	kNarratorVoiceRate("NarratorVoiceRate",
 	"General",
-	"BLEH",
+	"Speech rate for narrator voice (-10 to 10, -11 for default)",
 	(float)-11);
 
 SME::INI::INISetting	kPlayerVoiceVolume("PlayerVoiceVolume",
 	"General",
-	"BLEH",
+	"Volume for player voice (0-100, -1 for default)",
 	(float)-1);
 SME::INI::INISetting	kFemaleVoiceVolume("FemaleVoiceVolume",
 	"General",
-	"BLEH",
+	"Volume for female NPC voices (0-100, -1 for default)",
 	(float)-1);
 SME::INI::INISetting	kMaleVoiceVolume("MaleVoiceVolume",
 	"General",
-	"BLEH",
+	"Volume for male NPC voices (0-100, -1 for default)",
 	(float)-1);
 SME::INI::INISetting	kNarratorVoiceVolume("NarratorVoiceVolume",
 	"General",
-	"BLEH",
+	"Volume for narrator voice (0-100, -1 for default)",
 	(float)-1);
 
 SME::INI::INISetting	kPlayerVoicePitch("PlayerVoicePitch",
 	"General",
-	"BLEH",
+	"Pitch adjustment for player voice (-10 to 10, -99 for default)",
 	(SInt32)-99);
 SME::INI::INISetting	kFemaleVoicePitch("FemaleVoicePitch",
 	"General",
-	"BLEH",
+	"Pitch adjustment for female NPC voices (-10 to 10, -99 for default)",
 	(SInt32)-99);
 SME::INI::INISetting	kMaleVoicePitch("MaleVoicePitch",
 	"General",
-	"BLEH",
+	"Pitch adjustment for male NPC voices (-10 to 10, -99 for default)",
 	(SInt32)-99);
 SME::INI::INISetting	kNarratorVoicePitch("NarratorVoicePitch",
 	"General",
-	"BLEH",
+	"Pitch adjustment for narrator voice (-10 to 10, -99 for default)",
 	(SInt32)-99);
 
 SME::INI::INISetting	kxVASynthVoice("xVASynthVoice",
 	"General",
-	"BLEH",
+	"Use xVASynth for voice synthesis (0=SAPI, 1=xVASynth)",
 	(UInt32)0);
 SME::INI::INISetting	kxVASynthGame("xVASynthGame",
 	"General",
-	"BLEH",
+	"xVASynth game/model directory name",
 	(char*)"");
 
 void FuzRoBorkINIManager::Initialize(const char* INIPath, void* Paramenter)
