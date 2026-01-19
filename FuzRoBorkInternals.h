@@ -364,8 +364,8 @@ namespace FuzRoBorkNamespace {
 	void startPlayerSpeech(const char* _title);
 	void startNarratorSpeech(const char* text);
 	void speakLoadingScreen(const char* text);
-	boolean isSpeaking();
-	boolean isXVASpeaking();
+	bool isSpeaking();
+	bool isXVASpeaking();
 	void stopSpeaking(void);
 	
 }
