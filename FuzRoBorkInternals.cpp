@@ -13,6 +13,8 @@ FuzRoBorkINIManager		FuzRoBorkINIManager::Instance;
 SubtitleHasher			SubtitleHasher::Instance;
 const double			SubtitleHasher::kPurgeInterval = 1000.0 * 60.0f;
 
+bool					actionSpeaking = false;
+
 
 SME::INI::INISetting	kWordsPerSecondSilence("WordsPerSecondSilence",
 	"General",

@@ -333,7 +333,7 @@ public:
 	string speech;
 };
 
-static boolean actionSpeaking = false;
+extern bool actionSpeaking;
 
 namespace FuzRoBorkNamespace {
 
